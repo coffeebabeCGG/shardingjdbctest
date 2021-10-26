@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: id-base
+server:
+  port: 8090
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
