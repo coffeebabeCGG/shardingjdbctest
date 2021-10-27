@@ -1,0 +1,66 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: create
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        show_sql: true
+  shardingsphere:
+    props:
+      sql:
+        show: true
+    datasource:
+      names: master0,master0slave0,master1,master1slave0
+      master0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3307/app1?useUnicode=true&characterEncoding=utf8&tinyInt1isBit=false&useSSL=false&serverTimezone=GMT
+        username: root
+        password: 654321
+      master1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3307/app2?useUnicode=true&characterEncoding=utf8&tinyInt1isBit=false&useSSL=false&serverTimezone=GMT
+        username: root
+        password: 654321
+      master0slave0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3308/app1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT
+        username: root
+        password: 654321
+      master1slave0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3308/app2?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT
+        username: root
+        password: 654321
+    sharding:
+      default-database-strategy:
+        inline:
+          sharding-column: id
+          algorithm-expression: app$->{(id % 2)+1}
+      tables:
+        user:
+          actual-data-nodes: app$->{1..2}.user$->{1..2}
+          table-strategy:
+            inline:
+              sharding-column: id
+              algorithm-expression: user$->{((""+id)[2..10].toInteger() % 2)+1}
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+      master-slave-rules:
+        app1:
+          master-data-source-name: master0
+          slave-data-source-names: master0slave0
+        app2:
+          master-data-source-name: master1
+          slave-data-source-names: master1slave0
+sharding:
+  jdbc:
+    config:
+      masterslave:
+        load-balance-algorithm-type: random
+

@@ -36,10 +36,10 @@ public class AppTest {
     public void testShardingJdbcQuery() {
 
         //全部查询
-        userService.queryUserList();
+//        userService.queryUserList();
 
         //根据指定条件查询
-        userService.queryUserById(1452619865043066882L);
+        userService.queryUserById(1452619866473324545L);
 
     }
 
