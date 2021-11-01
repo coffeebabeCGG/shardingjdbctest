@@ -12,10 +12,15 @@ import java.util.List;
  * @version 1.0.0
  * @date 2021/10/25
  */
-@Repository
+@Mapper
 public interface UserMapper extends BaseMapper<User> {
 
 
+    /**
+     * 查询所有
+     *
+     * @return 用户信息
+     */
     List<User> queryUserList();
 
 }

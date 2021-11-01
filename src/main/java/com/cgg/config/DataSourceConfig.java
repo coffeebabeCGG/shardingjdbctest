@@ -21,9 +21,8 @@ public class DataSourceConfig {
 
 
     @Bean
-    @Order(-10000)
-    public DataSource dataSource() throws FileNotFoundException, SQLException, IOException {
-        return YamlMasterSlaveDataSourceFactory.createDataSource(ResourceUtils.getFile("classpath:sharding.yml"));
+    public DataSource dataSource() throws SQLException, IOException {
+        return YamlMasterSlaveDataSourceFactory.createDataSource(ResourceUtils.getFile("classpath:application.yml"));
     }
 
 

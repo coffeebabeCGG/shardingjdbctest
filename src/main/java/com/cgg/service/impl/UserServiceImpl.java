@@ -35,7 +35,6 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User queryUserById(Long id) {
-
         User user = userMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getId, id));
         System.out.println(user.toString());
         return user;

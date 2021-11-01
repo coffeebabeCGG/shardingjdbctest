@@ -11,9 +11,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @version 1.0.0
  * @date 2021/10/25
  */
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@SpringBootApplication
 @EnableConfigurationProperties
-@MapperScan("com.cgg.repository")
 public class ShardingJdbcApp {
 
 

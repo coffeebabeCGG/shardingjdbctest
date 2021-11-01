@@ -1,7 +1,6 @@
 package com.cgg.service;
 
 import com.cgg.entity.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,6 +13,7 @@ public interface IUserService {
 
     /**
      * 根据id查询指定用户
+     *
      * @param id 用户id
      * @return 用户信息
      */
@@ -21,6 +21,7 @@ public interface IUserService {
 
     /**
      * 查询所有用户
+     *
      * @return 用户集合
      */
     List<User> queryUserList();
